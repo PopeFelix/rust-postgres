@@ -1,0 +1,9 @@
+DROP FUNCTION IF EXISTS public._group_concat CASCADE;
+DROP FUNCTION IF EXISTS public.film_in_stock CASCADE;
+DROP FUNCTION IF EXISTS public.film_not_in_stock CASCADE;
+DROP FUNCTION IF EXISTS public.get_customer_balance CASCADE;
+DROP FUNCTION IF EXISTS public.inventory_held_by_customers CASCADE;
+DROP FUNCTION IF EXISTS public.inventory_in_stock CASCADE;
+DROP FUNCTION IF EXISTS public.last_day CASCADE;
+DROP FUNCTION IF EXISTS public.last_updated CASCADE;
+DROP FUNCTION IF EXISTS public.rewards_report CASCADE;
