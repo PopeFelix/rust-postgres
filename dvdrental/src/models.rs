@@ -193,7 +193,7 @@ pub struct Payment {
     pub payment_date: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, Selectable)]
 #[diesel(table_name=crate::schema::rentals)]
 #[diesel(primary_key(rental_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
