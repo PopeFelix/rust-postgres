@@ -1,1 +1,1 @@
-A sketch illustrating interaction between Rust and PostgreSQL
+A small app that demonstrates interaction between Rust and PostgreSQL. Database interaction via Diesel.
