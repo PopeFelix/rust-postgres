@@ -7,7 +7,7 @@ use chrono::NaiveDate;
 use chrono::NaiveDateTime;
 use diesel::prelude::*;
 
-#[derive(Debug, diesel_derive_enum::DbEnum)]
+#[derive(Debug, diesel_derive_enum::DbEnum, PartialEq)]
 #[ExistingTypePath = "crate::schema::sql_types::MpaaRating"]
 pub enum MpaaRating {
     G,
@@ -38,9 +38,10 @@ pub struct Actor {
     pub last_update: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::addresses)]
 #[diesel(primary_key(address_id))]
+#[diesel(belongs_to(City))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Address {
     pub address_id: i32,
@@ -63,8 +64,9 @@ pub struct Category {
     pub last_update: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::cities)]
+#[diesel(belongs_to(Country))]
 #[diesel(primary_key(city_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct City {
@@ -84,9 +86,11 @@ pub struct Country {
     pub last_update: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, Associations, PartialEq)]
 #[diesel(table_name=crate::schema::customers)]
 #[diesel(primary_key(customer_id))]
+#[diesel(belongs_to(Store))]
+#[diesel(belongs_to(Address))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Customer {
     pub customer_id: i32,
@@ -101,9 +105,11 @@ pub struct Customer {
     pub active: Option<i32>,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::employees)]
 #[diesel(primary_key(employee_id))]
+#[diesel(belongs_to(Store))]
+#[diesel(belongs_to(Address))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Employee {
     pub employee_id: i32,
@@ -119,8 +125,9 @@ pub struct Employee {
     pub picture: Option<Vec<u8>>,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::films)]
+#[diesel(belongs_to(Language))]
 #[diesel(primary_key(film_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Film {
@@ -139,8 +146,10 @@ pub struct Film {
     // pub fulltext: Vec<String>, /* FIXME: This is a Tsvector */
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::films_actors)]
+#[diesel(belongs_to(Actor))]
+#[diesel(belongs_to(Film))]
 #[diesel(primary_key(actor_id, film_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct FilmsActor {
@@ -149,8 +158,10 @@ pub struct FilmsActor {
     pub last_update: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::films_categories)]
+#[diesel(belongs_to(Category))]
+#[diesel(belongs_to(Film))]
 #[diesel(primary_key(film_id, category_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct FilmsCategory {
@@ -159,8 +170,10 @@ pub struct FilmsCategory {
     pub last_update: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::inventory)]
+#[diesel(belongs_to(Store))]
+#[diesel(belongs_to(Film))]
 #[diesel(primary_key(inventory_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Inventory {
@@ -180,8 +193,11 @@ pub struct Language {
     pub last_update: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::payments)]
+#[diesel(belongs_to(Rental))]
+#[diesel(belongs_to(Customer))]
+#[diesel(belongs_to(Employee))]
 #[diesel(primary_key(payment_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Payment {
@@ -193,8 +209,11 @@ pub struct Payment {
     pub payment_date: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable, Selectable)]
+#[derive(Queryable, Debug, Identifiable, Selectable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::rentals)]
+#[diesel(belongs_to(Inventory))]
+#[diesel(belongs_to(Customer))]
+#[diesel(belongs_to(Employee))]
 #[diesel(primary_key(rental_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Rental {
@@ -207,10 +226,11 @@ pub struct Rental {
     pub last_update: NaiveDateTime,
 }
 
-#[derive(Queryable, Debug, Identifiable)]
+#[derive(Queryable, Debug, Identifiable, Selectable, PartialEq, Associations)]
 #[diesel(table_name=crate::schema::stores)]
 #[diesel(primary_key(store_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
+#[diesel(belongs_to(Employee, foreign_key=manager_employee_id))]
 pub struct Store {
     pub store_id: i32,
     pub manager_employee_id: i32,
