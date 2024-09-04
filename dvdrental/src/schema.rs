@@ -195,6 +195,25 @@ diesel::table! {
     }
 }
 
+diesel::joinable!(addresses -> cities (city_id));
+diesel::joinable!(cities -> countries (country_id));
+diesel::joinable!(customers -> addresses (address_id));
+diesel::joinable!(employees -> addresses (address_id));
+diesel::joinable!(films -> languages (language_id));
+diesel::joinable!(films_actors -> actors (actor_id));
+diesel::joinable!(films_actors -> films (film_id));
+diesel::joinable!(films_categories -> categories (category_id));
+diesel::joinable!(films_categories -> films (film_id));
+diesel::joinable!(inventory -> films (film_id));
+diesel::joinable!(payments -> customers (customer_id));
+diesel::joinable!(payments -> employees (employee_id));
+diesel::joinable!(payments -> rentals (rental_id));
+diesel::joinable!(rentals -> customers (customer_id));
+diesel::joinable!(rentals -> employees (employee_id));
+diesel::joinable!(rentals -> inventory (inventory_id));
+diesel::joinable!(stores -> addresses (address_id));
+diesel::joinable!(stores -> employees (manager_employee_id));
+
 diesel::allow_tables_to_appear_in_same_query!(
     actors,
     addresses,
