@@ -47,7 +47,7 @@ pub struct Address {
     pub address1: String,
     pub address2: Option<String>,
     pub district: String,
-    pub city_id: i16,
+    pub city_id: i32,
     pub postal_code: Option<String>,
     pub phone: String,
     pub last_update: NaiveDateTime,
@@ -70,7 +70,7 @@ pub struct Category {
 pub struct City {
     pub city_id: i32,
     pub city_name: String,
-    pub country_id: i16,
+    pub country_id: i32,
     pub last_update: NaiveDateTime,
 }
 
@@ -90,11 +90,11 @@ pub struct Country {
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Customer {
     pub customer_id: i32,
-    pub store_id: i16,
+    pub store_id: i32,
     pub first_name: String,
     pub last_name: String,
     pub email: Option<String>,
-    pub address_id: i16,
+    pub address_id: i32,
     pub activebool: bool,
     pub create_date: NaiveDate,
     pub last_update: Option<NaiveDateTime>,
@@ -109,9 +109,9 @@ pub struct Employee {
     pub employee_id: i32,
     pub first_name: String,
     pub last_name: String,
-    pub address_id: i16,
+    pub address_id: i32,
     pub email: Option<String>,
-    pub store_id: i16,
+    pub store_id: i32,
     pub active: bool,
     pub username: String,
     pub password: Option<String>,
@@ -128,7 +128,7 @@ pub struct Film {
     pub title: String,
     pub description: Option<String>,
     pub release_year: Option<i32>,
-    pub language_id: i16,
+    pub language_id: i32,
     pub rental_duration: i16,
     pub rental_rate: f32,
     pub length: Option<i16>,
@@ -144,8 +144,8 @@ pub struct Film {
 #[diesel(primary_key(actor_id, film_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct FilmsActor {
-    pub actor_id: i16,
-    pub film_id: i16,
+    pub actor_id: i32,
+    pub film_id: i32,
     pub last_update: NaiveDateTime,
 }
 
@@ -154,8 +154,8 @@ pub struct FilmsActor {
 #[diesel(primary_key(film_id, category_id))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct FilmsCategory {
-    pub film_id: i16,
-    pub category_id: i16,
+    pub film_id: i32,
+    pub category_id: i32,
     pub last_update: NaiveDateTime,
 }
 
@@ -165,8 +165,8 @@ pub struct FilmsCategory {
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Inventory {
     pub inventory_id: i32,
-    pub film_id: i16,
-    pub store_id: i16,
+    pub film_id: i32,
+    pub store_id: i32,
     pub last_update: NaiveDateTime,
 }
 
@@ -186,8 +186,8 @@ pub struct Language {
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Payment {
     pub payment_id: i32,
-    pub customer_id: i16,
-    pub employee_id: i16,
+    pub customer_id: i32,
+    pub employee_id: i32,
     pub rental_id: i32,
     pub amount: f32,
     pub payment_date: NaiveDateTime,
@@ -201,9 +201,9 @@ pub struct Rental {
     pub rental_id: i32,
     pub rental_date: NaiveDateTime,
     pub inventory_id: i32,
-    pub customer_id: i16,
+    pub customer_id: i32,
     pub return_date: Option<NaiveDateTime>,
-    pub employee_id: i16,
+    pub employee_id: i32,
     pub last_update: NaiveDateTime,
 }
 
@@ -213,7 +213,7 @@ pub struct Rental {
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Store {
     pub store_id: i32,
-    pub manager_employee_id: i16,
-    pub address_id: i16,
+    pub manager_employee_id: i32,
+    pub address_id: i32,
     pub last_update: NaiveDateTime,
 }

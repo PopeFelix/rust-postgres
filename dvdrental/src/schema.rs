@@ -30,7 +30,7 @@ diesel::table! {
         address2 -> Nullable<Varchar>,
         #[max_length = 20]
         district -> Varchar,
-        city_id -> Int2,
+        city_id -> Int4,
         #[max_length = 10]
         postal_code -> Nullable<Varchar>,
         #[max_length = 20]
@@ -53,7 +53,7 @@ diesel::table! {
         city_id -> Int4,
         #[max_length = 50]
         city_name -> Varchar,
-        country_id -> Int2,
+        country_id -> Int4,
         last_update -> Timestamp,
     }
 }
@@ -70,14 +70,14 @@ diesel::table! {
 diesel::table! {
     customers (customer_id) {
         customer_id -> Int4,
-        store_id -> Int2,
+        store_id -> Int4,
         #[max_length = 45]
         first_name -> Varchar,
         #[max_length = 45]
         last_name -> Varchar,
         #[max_length = 50]
         email -> Nullable<Varchar>,
-        address_id -> Int2,
+        address_id -> Int4,
         activebool -> Bool,
         create_date -> Date,
         last_update -> Nullable<Timestamp>,
@@ -92,10 +92,10 @@ diesel::table! {
         first_name -> Varchar,
         #[max_length = 45]
         last_name -> Varchar,
-        address_id -> Int2,
+        address_id -> Int4,
         #[max_length = 50]
         email -> Nullable<Varchar>,
-        store_id -> Int2,
+        store_id -> Int4,
         active -> Bool,
         #[max_length = 16]
         username -> Varchar,
@@ -117,7 +117,7 @@ diesel::table! {
         title -> Varchar,
         description -> Nullable<Text>,
         release_year -> Nullable<Int4>,
-        language_id -> Int2,
+        language_id -> Int4,
         rental_duration -> Int2,
         rental_rate -> Numeric,
         length -> Nullable<Int2>,
@@ -131,16 +131,16 @@ diesel::table! {
 
 diesel::table! {
     films_actors (actor_id, film_id) {
-        actor_id -> Int2,
-        film_id -> Int2,
+        actor_id -> Int4,
+        film_id -> Int4,
         last_update -> Timestamp,
     }
 }
 
 diesel::table! {
     films_categories (film_id, category_id) {
-        film_id -> Int2,
-        category_id -> Int2,
+        film_id -> Int4,
+        category_id -> Int4,
         last_update -> Timestamp,
     }
 }
@@ -148,8 +148,8 @@ diesel::table! {
 diesel::table! {
     inventory (inventory_id) {
         inventory_id -> Int4,
-        film_id -> Int2,
-        store_id -> Int2,
+        film_id -> Int4,
+        store_id -> Int4,
         last_update -> Timestamp,
     }
 }
@@ -166,8 +166,8 @@ diesel::table! {
 diesel::table! {
     payments (payment_id) {
         payment_id -> Int4,
-        customer_id -> Int2,
-        employee_id -> Int2,
+        customer_id -> Int4,
+        employee_id -> Int4,
         rental_id -> Int4,
         amount -> Numeric,
         payment_date -> Timestamp,
@@ -179,9 +179,9 @@ diesel::table! {
         rental_id -> Int4,
         rental_date -> Timestamp,
         inventory_id -> Int4,
-        customer_id -> Int2,
+        customer_id -> Int4,
         return_date -> Nullable<Timestamp>,
-        employee_id -> Int2,
+        employee_id -> Int4,
         last_update -> Timestamp,
     }
 }
@@ -189,8 +189,8 @@ diesel::table! {
 diesel::table! {
     stores (store_id) {
         store_id -> Int4,
-        manager_employee_id -> Int2,
-        address_id -> Int2,
+        manager_employee_id -> Int4,
+        address_id -> Int4,
         last_update -> Timestamp,
     }
 }

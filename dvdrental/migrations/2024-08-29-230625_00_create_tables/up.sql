@@ -10,11 +10,11 @@ ALTER SEQUENCE public.customers_customer_id_seq OWNER TO postgres;
 
 CREATE TABLE public.customers (
     customer_id integer DEFAULT nextval('public.customers_customer_id_seq'::regclass) NOT NULL,
-    store_id smallint NOT NULL,
+    store_id integer NOT NULL,
     first_name character varying(45) NOT NULL,
     last_name character varying(45) NOT NULL,
     email character varying(50),
-    address_id smallint NOT NULL,
+    address_id integer NOT NULL,
     activebool boolean DEFAULT true NOT NULL,
     create_date date DEFAULT ('now'::text)::date NOT NULL,
     last_update timestamp without time zone DEFAULT now(),
@@ -83,7 +83,7 @@ CREATE TABLE public.films (
     title character varying(255) NOT NULL,
     description text,
     release_year public.year,
-    language_id smallint NOT NULL,
+    language_id integer NOT NULL,
     rental_duration smallint DEFAULT 3 NOT NULL,
     rental_rate numeric(4,2) DEFAULT 4.99 NOT NULL,
     length smallint,
@@ -99,8 +99,8 @@ ALTER TABLE public.films OWNER TO postgres;
 
 
 CREATE TABLE public.films_actors (
-    actor_id smallint NOT NULL,
-    film_id smallint NOT NULL,
+    actor_id integer NOT NULL,
+    film_id integer NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -109,8 +109,8 @@ ALTER TABLE public.films_actors OWNER TO postgres;
 
 
 CREATE TABLE public.films_categories (
-    film_id smallint NOT NULL,
-    category_id smallint NOT NULL,
+    film_id integer NOT NULL,
+    category_id integer NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -137,7 +137,7 @@ CREATE TABLE public.addresses (
     address1 character varying(50) NOT NULL,
     address2 character varying(50),
     district character varying(20) NOT NULL,
-    city_id smallint NOT NULL,
+    city_id integer NOT NULL,
     postal_code character varying(10),
     phone character varying(20) NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
@@ -161,7 +161,7 @@ ALTER SEQUENCE public.cities_city_id_seq OWNER TO postgres;
 CREATE TABLE public.cities (
     city_id integer DEFAULT nextval('public.cities_city_id_seq'::regclass) NOT NULL,
     city_name character varying(50) NOT NULL,
-    country_id smallint NOT NULL,
+    country_id integer NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -208,9 +208,9 @@ CREATE TABLE public.employees (
     employee_id integer DEFAULT nextval('public.employees_employee_id_seq'::regclass) NOT NULL,
     first_name character varying(45) NOT NULL,
     last_name character varying(45) NOT NULL,
-    address_id smallint NOT NULL,
+    address_id integer NOT NULL,
     email character varying(50),
-    store_id smallint NOT NULL,
+    store_id integer NOT NULL,
     active boolean DEFAULT true NOT NULL,
     username character varying(16) NOT NULL,
     password character varying(40),
@@ -241,8 +241,8 @@ ALTER SEQUENCE public.inventory_inventory_id_seq OWNER TO postgres;
 
 CREATE TABLE public.inventory (
     inventory_id integer DEFAULT nextval('public.inventory_inventory_id_seq'::regclass) NOT NULL,
-    film_id smallint NOT NULL,
-    store_id smallint NOT NULL,
+    film_id integer NOT NULL,
+    store_id integer NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -287,8 +287,8 @@ ALTER SEQUENCE public.payments_payment_id_seq OWNER TO postgres;
 
 CREATE TABLE public.payments (
     payment_id integer DEFAULT nextval('public.payments_payment_id_seq'::regclass) NOT NULL,
-    customer_id smallint NOT NULL,
-    employee_id smallint NOT NULL,
+    customer_id integer NOT NULL,
+    employee_id integer NOT NULL,
     rental_id integer NOT NULL,
     amount numeric(5,2) NOT NULL,
     payment_date timestamp without time zone NOT NULL
@@ -313,9 +313,9 @@ CREATE TABLE public.rentals (
     rental_id integer DEFAULT nextval('public.rentals_rental_id_seq'::regclass) NOT NULL,
     rental_date timestamp without time zone NOT NULL,
     inventory_id integer NOT NULL,
-    customer_id smallint NOT NULL,
+    customer_id integer NOT NULL,
     return_date timestamp without time zone,
-    employee_id smallint NOT NULL,
+    employee_id integer NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -333,8 +333,8 @@ ALTER SEQUENCE public.stores_store_id_seq OWNER TO postgres;
 
 CREATE TABLE public.stores (
     store_id integer DEFAULT nextval('public.stores_store_id_seq'::regclass) NOT NULL,
-    manager_employee_id smallint NOT NULL,
-    address_id smallint NOT NULL,
+    manager_employee_id integer NOT NULL,
+    address_id integer NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
